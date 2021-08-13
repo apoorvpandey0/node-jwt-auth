@@ -1,5 +1,6 @@
 require("dotenv").config();
 require("./config/database").connect();
+const auth = require("./middleware/auth");
 
 // package imports
 const express = require("express");
@@ -102,5 +103,11 @@ app.post("/login", async (req, res) => {
     }
   });
   
+
+// Welccome endpoint with a middleware for authentication in it
+app.post("/welcome", auth, (req, res) => {
+    res.status(200).send("Welcome 🙌 ");
+});
+
 module.exports = app;
 
